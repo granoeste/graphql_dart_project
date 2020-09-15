@@ -1,0 +1,12 @@
+{
+  "name": "Schema",
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Default": {
+        "url": "http://snowtooth.moonhighway.com",
+        "introspect": true
+      }
+    }
+  }
+}

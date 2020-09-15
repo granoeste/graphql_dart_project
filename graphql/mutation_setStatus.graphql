@@ -1,0 +1,7 @@
+mutation setStatus($id: ID!, $status:LiftStatus!)  {
+    setLiftStatus(id: $id status: $status) {
+        id
+        name
+        status
+    }
+}
