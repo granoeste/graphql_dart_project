@@ -54,8 +54,10 @@ class SetStatus$Mutation$Lift with EquatableMixin {
   @JsonKey(unknownEnumValue: LiftStatus.artemisUnknown)
   LiftStatus status;
 
+  int capacity;
+
   @override
-  List<Object> get props => [id, name, status];
+  List<Object> get props => [id, name, status, capacity];
   Map<String, dynamic> toJson() => _$SetStatus$Mutation$LiftToJson(this);
 }
 
@@ -203,6 +205,12 @@ class SetStatusMutation
                     selectionSet: null),
                 FieldNode(
                     name: NameNode(value: 'status'),
+                    alias: null,
+                    arguments: [],
+                    directives: [],
+                    selectionSet: null),
+                FieldNode(
+                    name: NameNode(value: 'capacity'),
                     alias: null,
                     arguments: [],
                     directives: [],

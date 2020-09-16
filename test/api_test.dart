@@ -19,8 +19,12 @@ void main() {
     });
 
     test('AllLiftsQuery Test', () async {
+      // artemis で生成されたクラスで Query クエリーを作成
+      final allLiftsQuery = AllLiftsQuery();
+
+      // graphql でクエリー実行
       final result = await _client.query(QueryOptions(
-        document: AllLiftsQuery().document,
+        document: allLiftsQuery.document,
       ));
 
       if (result.hasException) {
@@ -28,31 +32,46 @@ void main() {
         return;
       }
 
-      final allLifts = AllLifts$Query.fromJson(result.data).allLifts;
-      print('length:${allLifts.length}');
-      expect(allLifts.length, greaterThanOrEqualTo(1));
-      allLifts.forEach((element) {
+      // artemis で生成されたクラスで結果をクラスに変換
+      final responce = AllLifts$Query.fromJson(result.data);
+
+      print('length:${responce.allLifts.length}');
+
+      expect(responce.allLifts.length, greaterThanOrEqualTo(1));
+
+      responce.allLifts.forEach((element) {
         print('${element.toJson()}');
       });
     });
 
     test('SetStatusMutation Test', () async {
+      // artemis で生成されたクラスで Mutation クエリーを作成
+      // Argumentsでタイプセーフ
+      final setStatusMutation = SetStatusMutation(
+        variables: SetStatusArguments(
+          id: 'astra-express',
+          status: LiftStatus.hold,
+        ),
+      );
+
+      // graphql でクエリー実行
       final result = await _client.mutate(MutationOptions(
-        document: SetStatusMutation().document,
-        variables: <String, dynamic>{
-          'id': 'astra-express',
-          'status': 'HOLD',
-        },
+        document: setStatusMutation.document,
+        variables: setStatusMutation.variables.toJson(),
       ));
 
+      expect(result.hasException, equals(false));
       if (result.hasException) {
         print(result.exception.toString());
         return;
       }
-      print('${result.data}');
+      // print('${result.data}');
 
-      final lift = SetStatus$Mutation$Lift.fromJson(result.data);
-      print('${lift.props}');
+      // artemis で生成されたクラスで結果をクラスに変換
+      final responce = SetStatus$Mutation.fromJson(result.data);
+      print('${responce.setLiftStatus.toJson()}');
+
+      expect(responce.setLiftStatus.status, equals(LiftStatus.hold));
     });
   });
 }

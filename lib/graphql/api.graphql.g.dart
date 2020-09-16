@@ -81,7 +81,8 @@ SetStatus$Mutation$Lift _$SetStatus$Mutation$LiftFromJson(
     ..id = json['id'] as String
     ..name = json['name'] as String
     ..status = _$enumDecodeNullable(_$LiftStatusEnumMap, json['status'],
-        unknownValue: LiftStatus.artemisUnknown);
+        unknownValue: LiftStatus.artemisUnknown)
+    ..capacity = json['capacity'] as int;
 }
 
 Map<String, dynamic> _$SetStatus$Mutation$LiftToJson(
@@ -90,6 +91,7 @@ Map<String, dynamic> _$SetStatus$Mutation$LiftToJson(
       'id': instance.id,
       'name': instance.name,
       'status': _$LiftStatusEnumMap[instance.status],
+      'capacity': instance.capacity,
     };
 
 SetStatus$Mutation _$SetStatus$MutationFromJson(Map<String, dynamic> json) {
