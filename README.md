@@ -1,4 +1,4 @@
-# GraphQL for Dart
+original [granoeste/graphql_dart_project: GraphQL for Dart](https://github.com/granoeste/graphql_dart_project) 
 
 ## Introduction
 GraphQL は、Facebook が開発している Web API のための仕様。スキーマ定義とクエリー言語から成り立つ。
@@ -10,11 +10,11 @@ OpenAPI では、データを増やす場合、エンドポイントのレスポ
 
 GraphQL のライブラリは [Apollo](https://www.apollographql.com/) が有名であるが、Dart/Flutter はサポートされていないため、[graphql](https://pub.dev/packages/graphql), [graphql_flutter](https://pub.dev/packages/graphql_flutter) を使用することになる。
 
+詳しくは [GraphQL](https://graphql.org/)や[「GraphQL」徹底入門 ─ RESTとの比較、API・フロント双方の実装から学ぶ](https://employment.en-japan.com/engineerhub/entry/2018/12/26/103000) を参照
+
 GitHub は API v4 で GraphQLを採用している。 [GitHub GraphQL API v4](https:/developer.github.com/v4/)
 GitHub GraphQL API は、データ取得系の Query を試すには良いが、データ更新系の Mutation を試すのには向いていない。また、スキーマ定義はかなり巨大で構造を理解するのには向いていない。
 Playground - https://snowtooth.moonhighway.com/ や [graphql-faker](https://github.com/APIs-guru/graphql-faker) を使用した方が理解しやすい。
-
-詳しくは [GraphQL](https://graphql.org/)や[「GraphQL」徹底入門 ─ RESTとの比較、API・フロント双方の実装から学ぶ](https://employment.en-japan.com/engineerhub/entry/2018/12/26/103000) を参照
 
 --- 
 次より、
@@ -114,12 +114,14 @@ stagehand package-simple
 
 #### Setup Dependencies
 GraphQL Client [graphql](https://pub.dev/packages/graphql) の追加
+
 ```yaml
 dependencies:
  graphql: ^4.0.0-alpha.3
 ```
 
 GraphQL Schemas and Queries Code Generator [artemis](https://pub.dev/packages/artemis) と関連 Package の追加
+
 ```yaml
 dev_dependencies:
  build_runner: ^1.10.2
@@ -131,6 +133,7 @@ dev_dependencies:
 - [json_serializable](https://pub.dev/packages/json_serializable) ... JSON をシリアライズ/デシリアライするコードのジェネレーター
 
 Dependencies の更新
+
 ```
 pub get
 ```
@@ -158,6 +161,7 @@ targets:
 ダウンロードした スキーマファイル(schema.graphql)をプロジェクトディレクトリにコピー
 
 .graphqlconfig をルート作成
+
 ```yaml
 {
   "name": "Schema",
@@ -178,6 +182,7 @@ targets:
 #### Query (データ取得) クエリーファイルの作成
 
 graphql/query_allLifts.graphql
+
 ```graphql
 query allLifts {
     allLifts {
@@ -189,6 +194,7 @@ query allLifts {
 ```
 
 このクエリーは スキーマの以下のエンドポイントにリクエストを投げる
+
 ```graphql
 type Query {
   """A list of all `Lift` objects"""
@@ -212,6 +218,7 @@ lib/graphql に Dart コードが作成される
 #### テスト
 
 test/api_test.dart
+
 ```dart
 import 'package:graphql/client.dart';
 import 'package:graphql_project/graphql/api.graphql.dart';
@@ -259,6 +266,7 @@ void main() {
 ```
 
 Run Test
+
 ```sh
 pub run test test/api_test.dart 
 ```
@@ -266,6 +274,7 @@ pub run test test/api_test.dart
 #### Mutation (データ更新) クエリーファイルの作成
 
 graphql/mutation_setStatus.graphql
+
 ```graphql
 mutation setStatus($id: ID!, $status:LiftStatus!)  {
     setLiftStatus(id: $id status: $status) {
@@ -277,6 +286,7 @@ mutation setStatus($id: ID!, $status:LiftStatus!)  {
 ```
 
 Dart コードを更新
+
 ```
 pub run build_runner build
 ```
@@ -285,6 +295,7 @@ pub run build_runner build
 SetStatusMutation の Test を追加
 
 test/api_test.dart
+
 ```dart
     test('SetStatusMutation Test', () async {
       // artemis で生成されたクラスで Mutation クエリーを作成
@@ -318,6 +329,7 @@ test/api_test.dart
 ```
 
 Run Test
+
 ```sh
 pub run test test/api_test.dart 
 ```
@@ -344,7 +356,3 @@ pub run test test/api_test.dart
 - [prisma-labs/get-graphql-schema: Fetch and print the GraphQL schema from a GraphQL HTTP endpoint. (Can be used for Relay Modern.)](https://github.com/prisma-labs/get-graphql-schema)
 ### Miscs
 - [chentsulin/awesome-graphql: Awesome list of GraphQL & Relay](https://github.com/chentsulin/awesome-graphql)
-
-
-
-
